@@ -1,5 +1,2 @@
 #!/bin/bash
-# This script generates the assembly code (Intel syntax) of a C code and saves it in an output file.
-# The C file name will be saved in the variable $CFILE. The output file will have the same name but with a .s extension.
-
 gcc -S -masm=intel "$CFILE" -o "${CFILE%.*}.s"
