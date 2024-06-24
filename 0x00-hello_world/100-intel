@@ -1,14 +1,5 @@
 #!/bin/bash
 # This script generates the assembly code (Intel syntax) of a C code and saves it in an output file.
+# The C file name will be saved in the variable $CFILE. The output file will have the same name but with a .s extension.
 
-# Check if the CFILE variable is set
-if [ -z "$CFILE" ]; then
-    echo "CFILE variable is not set."
-    exit 1
-fi
-
-# Get the base name of the C file (without the extension)
-BASENAME=$(basename "$CFILE" .c)
-
-# Generate the assembly code with Intel syntax and save it with .s extension
-gcc -S -masm=intel "$CFILE" -o "${BASENAME}.s"
+gcc -S -masm=intel "$CFILE" -o "${CFILE%.*}.s"
