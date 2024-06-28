@@ -1,1 +1,1 @@
-this is just a test of the code
+This project involves debugging various pieces of C code to understand and fix issues.
