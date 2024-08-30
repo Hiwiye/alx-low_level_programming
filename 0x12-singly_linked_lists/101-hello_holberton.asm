@@ -1,21 +1,18 @@
 section .data
-    hello_msg db "Hello, Holberton", 0   ; Define the message string with a null terminator
+    hello_msg db "Hello, Holberton", 0xA  ; Message to print with a newline at the end
 
 section .text
-    extern printf                        ; Declare printf as an external symbol
-    global main                          ; Define the global entry point for the program
+    global _start                         ; Entry point for the program
 
-main:
-    ; Set up the arguments for printf
-    mov rdi, hello_msg                   ; First argument: pointer to the message string
-    xor rax, rax                         ; Clear rax to indicate no floating point arguments
-
-    ; Call printf
-    call printf                          ; Call the printf function
+_start:
+    ; Write the message to stdout
+    mov rax, 1                            ; syscall: write
+    mov rdi, 1                            ; file descriptor: stdout
+    mov rsi, hello_msg                    ; pointer to the message
+    mov rdx, 18                           ; length of the message
+    syscall                               ; make the syscall
 
     ; Exit the program
-    mov rax, 60                          ; System call number for exit
-    xor rdi, rdi                         ; Exit code 0
-    syscall                              ; Make the system call
-
-section .note.GNU-stack noalloc noexec nowrite progbits
+    mov rax, 60                           ; syscall: exit
+    xor rdi, rdi                          ; exit code 0
+    syscall                               ; make the syscall
